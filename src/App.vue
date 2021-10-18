@@ -1,6 +1,6 @@
 <template>
 <div>
-  super
+  <h2>张子豪</h2>
 </div>
 </template>
 
