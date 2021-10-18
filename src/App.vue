@@ -1,19 +1,19 @@
 <template>
-<div>
-  <h2>张子豪</h2>
-  <h2>张子豪</h2>
-  <h2>张子豪</h2>
-  <h2>张子豪</h2>
-</div>
+  <div>
+    <!-- 最终封装结果 -->
+    <!-- 视图 -->
+    <router-view></router-view>
+    <!-- 导航 -->
+    <mantabbar></mantabbar>
+  </div>
 </template>
-
 <script>
-
+import mantabbar from "components/content/mainTabbar/mantabbar.vue";
 export default {
-  name: 'App',
-}
+  name: "App",
+  components: {
+    mantabbar,
+  },
+};
 </script>
-
-<style>
-
-</style>
+<style></style>
