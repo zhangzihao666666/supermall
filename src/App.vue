@@ -1,6 +1,7 @@
 <template>
 <div>
   <h2>张子豪</h2>
+  <h2>张子豪</h2>
 </div>
 </template>
 
