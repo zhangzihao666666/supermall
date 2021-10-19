@@ -33,7 +33,6 @@ export default {
 
   methods: {
     itemsClick() {
-      console.log(this.$route);
       this.$router.push(this.path);
     },
   },
@@ -41,18 +40,8 @@ export default {
 </script>
 
 <style>
-.tabbaritem {
-  height: 49px;
-  flex: 1;
-}
-.tabbaritem img {
-  height: 24px;
-  widows: 24px;
-}
-.tabbaritem {
-  text-align: center;
-}
-.tabbaritem p {
-  margin: 0;
-}
+.tabbaritem {height: 49px;flex: 1;}
+.tabbaritem img {height: 24px;widows: 24px;}
+.tabbaritem {text-align: center;}
+.tabbaritem p {margin-top: 4px;}
 </style>
