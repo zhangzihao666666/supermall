@@ -1,6 +1,6 @@
 <template>
   <div class="banner">
-      <div v-for="(items) in Bannerlist" :key="items" class="imgbox">
+      <div v-for="items in Bannerlist" :key="items" class="banner-item">
           <img :src="items.image" alt="">
       </div>
   </div>
@@ -14,6 +14,6 @@ export default {
 </script>
 
 <style>
-.banner .imgbox {width: 100%;height: 150px;}
-.banner .imgbox img {width: 100%;height: 100%;}
+.banner .banner-item {width: 100%;height: 150px;}
+.banner .banner-item img {width: 100%;height: 100%;}
 </style>

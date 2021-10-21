@@ -1,9 +1,6 @@
 <template>
   <div>
-    <!-- 最终封装结果 -->
-    <!-- 视图 -->
     <router-view></router-view>
-    <!-- 导航 -->
     <mantabbar></mantabbar>
   </div>
 </template>
