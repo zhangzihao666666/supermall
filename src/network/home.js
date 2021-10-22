@@ -1,4 +1,4 @@
-import {request} from "./request";
+import {request,requestHome} from "./request";
 
 export function getHomedata() {
     return request({
@@ -7,7 +7,7 @@ export function getHomedata() {
 } 
 // export function getHomedata2 .....
 export function getHomeGoods(type,page) {
-    return request({
+    return requestHome({
         url: '/home/data',
         params: {
             type,
