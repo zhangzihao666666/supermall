@@ -19,7 +19,7 @@ export function requestHome(config){
         timeout: 5000
     })
     instance.interceptors.response.use(res => {
-        return res.data
+        return res.data.data
     }, err => {
         console.log(err)
     })

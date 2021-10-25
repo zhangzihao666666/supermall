@@ -4,7 +4,8 @@
     <Banner :Bannerlist="banners"></Banner>
     <Recommends :Recommendlist="recommends"></Recommends>
     <Feature></Feature>
-    <TabControl :titles="['流行', '新款', '精选']"></TabControl>
+    <TabControl :titles="['流行', '新款', '精选']" @tabClick="tabClick"></TabControl>
+    <Goodslist :goodslist="showGoods"></Goodslist>
   </div>
 </template>
 
@@ -12,6 +13,7 @@
 import { getHomedata, getHomeGoods } from "network/home.js";
 import NavBar from "components/common/navbar/NavBar.vue";
 import TabControl from "components/common/tabcontrol/TabControl";
+import Goodslist from "components/content/goods/Goodslist.vue"
 
 import Banner from "views/home/Banner";
 import Recommends from "views/home/Recommends";
@@ -24,21 +26,64 @@ export default {
     Recommends,
     Feature,
     TabControl,
+    Goodslist
   },
   data() {
     return {
       banners: [],
       recommends: [],
+      goods: {
+        'pop': { page: 0, list: [] },
+        'new': { page: 0, list: [] },
+        'sell': { page: 0, list: [] },
+      },
+      showType: "pop"
     };
   },
   created() {
-    getHomedata().then((res) => {
-      this.banners = res.data.banner.list;
-      this.recommends = res.data.recommend.list;
-    });
-    getHomeGoods('pop',1).then((res) => {
-      console.log(res)
-    });
+    // 在生命周期函数中尽量写对应的方法调用 具体的方法在methods中
+    this.getHomedata();
+    this.getHomeGoods('pop');
+    this.getHomeGoods('new');
+    this.getHomeGoods('sell');
+  },
+  computed: {
+    showGoods(){
+      return this.goods[this.showType].list
+    }
+  },
+  methods: {
+    // 监听相关方法
+    tabClick(index){
+      console.log(index)
+      switch(index){
+       case 0:
+        this.showType = "pop"
+        break
+       case 1:
+        this.showType = "new"
+        break
+       case 2:
+        this.showType = "sell"
+      }
+    },
+
+    // 网络请求方法
+    getHomedata() {
+      getHomedata().then((res) => {
+        this.banners = res.data.banner.list;
+        this.recommends = res.data.recommend.list;
+      });
+    },
+    getHomeGoods(type) {
+      // 拿到当前type的页码数
+      const page = this.goods[type].page + 1
+      getHomeGoods(type, page).then((res) => {
+        this.goods[type].list.push(...res.list)
+        this.goods[type].page += 1
+        console.log(res)
+      });
+    },
   },
 };
 </script>

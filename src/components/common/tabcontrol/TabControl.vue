@@ -25,6 +25,7 @@ export default {
     methods: {
         TabBtn(index){
             this.istrue = index
+            this.$emit('tabClick',index)
         }
     },
 }
