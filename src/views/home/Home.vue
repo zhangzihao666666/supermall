@@ -1,8 +1,15 @@
 <template>
-  <div id="home" class = 'wrapper'>
+  <div id="home" class="wrapper">
     <NavBar class="home-nav"><template #center>购物街</template> </NavBar>
 
-    <Scroll class="content" ref="scroll">
+    <Scroll
+      class="content"
+      ref="scroll"
+      :probetype="3"
+      @scrollposition="Homeposition"
+      :pullupload="true"
+      @scrollpullupload="Homeload"
+    >
       <Banner :Bannerlist="banners"></Banner>
       <Recommends :Recommendlist="recommends"></Recommends>
       <Feature></Feature>
@@ -10,7 +17,7 @@
       <Goodslist :goodslist="showGoods"></Goodslist>
     </Scroll>
 
-    <BackTop @click="backClick"></BackTop>
+    <BackTop @click="backClick" v-show="isshowbackTop"></BackTop>
   </div>
 </template>
 
@@ -20,7 +27,7 @@ import NavBar from "components/common/navbar/NavBar.vue";
 import TabControl from "components/common/tabcontrol/TabControl";
 import Goodslist from "components/content/goods/Goodslist.vue";
 import Scroll from "components/common/scroll/Scroll.vue";
-import BackTop from "components/content/backTop/BackTop.vue"
+import BackTop from "components/content/backTop/BackTop.vue";
 
 import Banner from "views/home/Banner";
 import Recommends from "views/home/Recommends";
@@ -35,7 +42,7 @@ export default {
     TabControl,
     Goodslist,
     Scroll,
-    BackTop
+    BackTop,
   },
   data() {
     return {
@@ -47,6 +54,7 @@ export default {
         sell: { page: 0, list: [] },
       },
       showType: "pop",
+      isshowbackTop: false,
     };
   },
   created() {
@@ -77,8 +85,16 @@ export default {
       }
     },
 
-    backClick(){
-      this.$refs.scroll.scroll.scrollTo(0,0,500)
+    backClick() {
+      this.$refs.scroll.scrollTo(0, 0, 300);
+    },
+    Homeposition(position) {
+      // console.log(position);
+      this.isshowbackTop = -position.y > 1000;
+    },
+    Homeload() {
+      console.log("加载更多");
+      this.getHomeGoods(this.showType);
     },
 
     // 网络请求方法
@@ -94,7 +110,6 @@ export default {
       getHomeGoods(type, page).then((res) => {
         this.goods[type].list.push(...res.list);
         this.goods[type].page += 1;
-        console.log(res);
       });
     },
   },
